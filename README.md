@@ -14,3 +14,9 @@ Install the application:
 ```shell
 make composer-install generate-app-key db-refresh
 ```
+
+Run the application
+
+```shell
+docker-compose up -d --build
+```
