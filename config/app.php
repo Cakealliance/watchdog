@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
+    'sentry_enabled' => env('SENTRY_ENABLED', false),
 
     /*
     |--------------------------------------------------------------------------
