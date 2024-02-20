@@ -88,7 +88,7 @@ class HealthcheckRegistryController extends Controller
             if ($failed === 0) {
                 $sitesStatusInfo[$siteName]['uptime_percent'] = 100;
             } else {
-                $sitesStatusInfo[$siteName]['uptime_percent'] = ($failed / $total) * 100;
+                $sitesStatusInfo[$siteName]['uptime_percent'] = number_format(($failed / $total) * 100, 2, '.', '');;
             }
             $jsData[$brandId] = [
                 "component" => [
