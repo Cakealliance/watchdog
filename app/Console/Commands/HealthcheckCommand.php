@@ -8,18 +8,19 @@ use Illuminate\Console\Command;
 use Carbon\Carbon;
 use App\Models\HealthcheckRegistryItem;
 use Illuminate\Support\Facades\Http;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class HealthcheckCommand extends Command
 {
     protected $signature = 'healthcheck:run';
 
-    public function handle()
+    public function handle(LoggerInterface $logger)
     {
         $observedSites = config('healthcheck.targets');
 
         foreach ($observedSites as $brandId => $observedSite) {
-            $responseStatus = Http::get($observedSite)->status();
+            $responseStatus = Http::timeout(4)->get($observedSite)->status();
 
             $currentTime = Carbon::now();
 
@@ -48,8 +49,12 @@ class HealthcheckCommand extends Command
 
             $checkedRegistryItem->total_checks += 1;
 
-            if($responseStatus !== Response::HTTP_OK) {
+            if($responseStatus >= Response::HTTP_BAD_REQUEST) {
                 $checkedRegistryItem = $this->registerFailedCheck($checkedRegistryItem, $currentTime);
+                $logger->error('healthcheck request failed', [
+                    'response_status' => $responseStatus,
+                    'target' => $observedSite,
+                ]);
             }
 
             $checkedRegistryItem->save();
