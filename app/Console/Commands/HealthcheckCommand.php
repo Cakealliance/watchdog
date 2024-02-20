@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HealthcheckCommand extends Command
 {
-    private const TIMEOUT_SECONDS = 5;
+    private const TIMEOUT_SECONDS = 15;
 
     protected $signature = 'healthcheck:run';
 
