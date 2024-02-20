@@ -45,7 +45,13 @@ class HealthcheckCommand extends Command
         }
 
         try {
-            $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($observedSite)->status();
+            if ($brandId === 5) {
+                $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)
+                    ->get(" https://best-obmen.com/api/directions/USDTTRC20/P24UAH")
+                    ->status();
+            } else {
+                $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($observedSite)->status();
+            }
         } catch (\Throwable $exception) {
             $logger->error('Could not process healthcheck target', [
                 'brand_id' => $brandId,
