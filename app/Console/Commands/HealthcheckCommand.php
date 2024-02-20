@@ -47,7 +47,7 @@ class HealthcheckCommand extends Command
         try {
             if ($brandId === 5) {
                 $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)
-                    ->get(" https://best-obmen.com/api/directions/USDTTRC20/P24UAH")
+                    ->get("https://best-obmen.com/api/directions/USDTTRC20/P24UAH")
                     ->status();
             } else {
                 $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($observedSite)->status();
