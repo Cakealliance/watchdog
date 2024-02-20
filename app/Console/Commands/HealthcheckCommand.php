@@ -58,7 +58,7 @@ class HealthcheckCommand extends Command
 
             $item->save();
 
-            continue;
+            return;
         }
 
 
