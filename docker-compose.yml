@@ -6,8 +6,6 @@ services:
             context: ./docker/local/nginx
             dockerfile: Dockerfile
         restart: unless-stopped
-        networks:
-            - default
         ports:
             - "80:80"
         volumes:
@@ -23,23 +21,32 @@ services:
                 - UID=${UID:-1000}
                 - GID=${GID:-1000}
         restart: unless-stopped
-        networks:
-            - default
         volumes:
             - ./:/var/www
         depends_on:
             - mysql
             - redis
 
+    scheduler:
+        build:
+            context: ./docker/local/php
+            dockerfile: DockerfileScheduler
+            args:
+                - UID=${UID:-1000}
+                - GID=${GID:-1000}
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - php
+        restart: unless-stopped
+
     mysql:
         build:
             context: ./docker/local/mysql
             dockerfile: Dockerfile
         restart: unless-stopped
-        networks:
-            - default
         ports:
-            - "${DB_PORT}:3306"
+            - "3306:3306"
         environment:
             MYSQL_DATABASE: $DB_DATABASE
             MYSQL_USER: $DB_USERNAME
@@ -54,19 +61,15 @@ services:
             context: ./docker/local/redis
             dockerfile: Dockerfile
         restart: unless-stopped
-        networks:
-            - default
         ports:
             - "6379:6379"
         volumes:
             - redis:/data
 
     node:
-        image: node:21.0.0
+        image: node:19.0.1
         working_dir: /app
         command: sh -c "npm install && npm run dev"
-        networks:
-            - default
         volumes:
             - ./:/app
         depends_on:
