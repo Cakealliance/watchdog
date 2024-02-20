@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/secret-status-page', [\App\Http\Controllers\HealthcheckRegistryController::class, "index"]);
+Route::get('/secret-status-page-lkjaf123s', [\App\Http\Controllers\HealthcheckRegistryController::class, "index"]);

@@ -643,13 +643,14 @@
             <i class="component-status hidden major_outage"></i>
             <div class="components-uptime-link history-footer-link">
                 Uptime over the past <var data-var="num" data-pluralize="90">90</var> days.
+                Last check: {{$lastCheck}} (Kyiv timezone)
             </div>
             <div class="components-container one-column">
 
                 @foreach($sitesStatusInfo as $siteName => $siteStatusInfo)
                     <div class="component-container border-color">
 
-                        <div data-component-id="{{$siteName}}"
+                        <div data-component-id="{{$siteStatusInfo['brand_id']}}"
                              class="component-inner-container status-green showcased"
                              data-component-status="operational"
                              data-js-hook="">
@@ -665,13 +666,13 @@
                             <span class="tool icon-indicator fa fa-check" title="Operational"></span>
 
                             <div class="shared-partial uptime-90-days-wrapper">
-                                <svg class="availability-time-line-graphic" id="uptime-component-{{$siteName}}" preserveAspectRatio="none" height="34" viewBox="0 0 448 34">
+                                <svg class="availability-time-line-graphic" id="uptime-component-{{$siteStatusInfo['brand_id']}}" preserveAspectRatio="none" height="34" viewBox="0 0 448 34">
 
                                     @php
                                         $x = 0;
                                         $day = 0;
                                     @endphp
-                                    @foreach($siteStatusInfo as $statusInfo)
+                                    @foreach($siteStatusInfo['days'] as $statusInfo)
                                         <rect height="34" width="3" x="{{$x}}" y="0"
                                               @if($statusInfo['failed_checks'] >= 50)
                                                   fill="#ef4146"
@@ -684,7 +685,7 @@
                                               @else
                                                   fill="#778899"
                                               @endif
-                                              role="tab" class="uptime-day component-{{$siteName}} day-{{$day}}"
+                                              role="tab" class="uptime-day component-{{$siteStatusInfo['brand_id']}} day-{{$day}}"
                                               data-html="true" tabindex="-1" aria-describedby="uptime-tooltip" />
                                         @php($x += 5)
                                         @php($day++)
@@ -698,9 +699,9 @@
                                     <div class="spacer">
 
                                     </div>
-                                    <div class="legend-item legend-item-uptime-value legend-item-{{$siteName}}">
-                                    <span id="uptime-percent-{{$siteName}}">
-                                      <var data-var="uptime-percent">X</var>
+                                    <div class="legend-item legend-item-uptime-value legend-item-{{$siteStatusInfo['brand_id']}}">
+                                    <span id="uptime-percent-{{$siteStatusInfo['brand_id']}}">
+                                      <var data-var="uptime-percent">{{ $siteStatusInfo['uptime_percent'] }}</var>
                                     </span>
                                         % uptime
                                     </div>
@@ -1055,8 +1056,6 @@
                     classes = classes.split(' ');
 
                     var componentCode = componentCodeFromClass(classes[1]);
-
-                    console.log(dayNumberFromClass(classes[2]))
                     this.activeDay = {
                         index: dayNumberFromClass(classes[2]),
                         component: componentCode,
@@ -1093,8 +1092,6 @@
             UptimeTooltipHandler.prototype.updateTooltipData = function() {
                 // Get the data for the day we're hovered on
                 var day = uptimeData[this.activeDay.component].days[this.activeDay.index];
-                console.log('index')
-                console.log(this.activeDay)
 
                 // Update the date for the tooltip
                 var date = new Date(day.date);
@@ -1115,7 +1112,7 @@
                 if (this.activeDay.isGroup) {
                     this.updateGroupOutageFields()
                 } else {
-                    this.updateOutageFields(day.outages.p, day.outages.m, day.related_events, beforeStartDate);
+                    this.updateOutageFields(day.outages.p, day.outages.m, day.outages.total, day.related_events, beforeStartDate);
                 }
             }
 
@@ -1146,6 +1143,7 @@
 
                 var partialCount = 0;
                 var majorCount = 0;
+                var totalCount = 0;
 
                 /**
                  We were originally using the operationalCount as part of the no outage copy for group components,
@@ -1180,6 +1178,10 @@
                         majorCount += 1;
                     }
 
+                    if (outages.total) {
+                        totalCount += 1;
+                    }
+
                     // Only increase operational count if component has data for this day
                     if (!outages.p && !outages.m) {
                         if (startDate && currentDate.getTime() < startDate.getTime()) {
@@ -1205,7 +1207,7 @@
                 document.querySelector('#uptime-tooltip .no-data-msg').style.display = showNoDataMessage ? 'block' : 'none';
             }
 
-            UptimeTooltipHandler.prototype.updateOutageFields = function(partial, major, relatedEvents, beforeStartDate) {
+            UptimeTooltipHandler.prototype.updateOutageFields = function(partial, major, total, relatedEvents, beforeStartDate) {
                 // Hide group info
                 document.querySelector('#major-outage-group-count').style.display = 'none';
                 document.querySelector('#partial-outage-group-count').style.display = 'none';
@@ -1215,6 +1217,8 @@
                     document.querySelector('#uptime-tooltip .no-outages-msg').style.display = 'none';
                 } else {
                     document.querySelector('#uptime-tooltip .no-outages-msg').style.display = 'block';
+                    var element = document.querySelector('#uptime-tooltip .no-outages-msg');
+                    element.textContent = "No downtime recorded on this day." + ' Checks count: ' + total;
                 }
 
                 if (beforeStartDate) {
