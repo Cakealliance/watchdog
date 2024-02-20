@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HealthcheckCommand extends Command
 {
+    private const TIMEOUT_SECONDS = 5;
+
     protected $signature = 'healthcheck:run';
 
     public function handle(LoggerInterface $logger)
@@ -20,23 +22,12 @@ class HealthcheckCommand extends Command
         $observedSites = config('healthcheck.targets');
 
         foreach ($observedSites as $brandId => $observedSite) {
-            try {
-                $this->processOne($brandId, $observedSite, $logger);
-            } catch (\Throwable $exception) {
-                $logger->error('Could not process healthcheck target', [
-                    'brand_id' => $brandId,
-                    'site_url' => $observedSite,
-                    'exception_message' => $exception->getMessage(),
-                    'exception_trace' => $exception->getTraceAsString(),
-                ]);
-            }
+            $this->processOne($brandId, $observedSite, $logger);
         }
     }
 
     private function processOne(int $brandId, string $observedSite, LoggerInterface $logger): void
     {
-        $responseStatus = Http::timeout(4)->get($observedSite)->status();
-
         $currentTime = Carbon::now();
 
         /** @var HealthcheckRegistryItem $checkedRegistryItem */
@@ -45,33 +36,35 @@ class HealthcheckCommand extends Command
             ->first();
 
         if ($checkedRegistryItem === null) {
-            $item = new HealthcheckRegistryItem;
-            $item->site_name = $observedSite;
-            $item->date = $currentTime->toDateString();
-            $item->brand_id = $brandId;
-            $item->total_checks = 1;
-            $item->failed_checks = 0;
+            $checkedRegistryItem = new HealthcheckRegistryItem;
+            $checkedRegistryItem->site_name = $observedSite;
+            $checkedRegistryItem->date = $currentTime->toDateString();
+            $checkedRegistryItem->brand_id = $brandId;
+            $checkedRegistryItem->total_checks = 0;
+            $checkedRegistryItem->failed_checks = 0;
+        }
 
-            if($responseStatus !== Response::HTTP_OK) {
-                $item = $this->registerFailedCheck($item, $currentTime);
-            }
+        try {
+            $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($observedSite)->status();
+        } catch (\Throwable $exception) {
+            $logger->error('Could not process healthcheck target', [
+                'brand_id' => $brandId,
+                'site_url' => $observedSite,
+                'exception_message' => $exception->getMessage(),
+                'exception_trace' => $exception->getTraceAsString(),
+            ]);
 
-            $item->save();
+            $checkedRegistryItem = $this->registerFailedCheck($checkedRegistryItem, $currentTime);
+            $checkedRegistryItem->save();
 
             return;
         }
 
-
-        $checkedRegistryItem->total_checks += 1;
-
-        if($responseStatus >= Response::HTTP_BAD_REQUEST) {
+        if($responseStatus >= Response::HTTP_NOT_FOUND) {
             $checkedRegistryItem = $this->registerFailedCheck($checkedRegistryItem, $currentTime);
-            $logger->error('healthcheck request failed', [
-                'response_status' => $responseStatus,
-                'target' => $observedSite,
-            ]);
+        } else {
+            $checkedRegistryItem->total_checks += 1;
         }
-
         $checkedRegistryItem->save();
     }
 
