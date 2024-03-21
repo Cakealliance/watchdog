@@ -21,9 +21,15 @@ class HealthcheckCommand extends Command
     {
         $observedSites = config('healthcheck.targets');
 
+        $startTime = Carbon::now();
         foreach ($observedSites as $brandId => $observedSite) {
             $this->processOne($brandId, $observedSite, $logger);
         }
+        $processTimeS = Carbon::now()->diffInSeconds($startTime);
+        $logger->info('HealthcheckCommand executed successfully', [
+            'process_time_s' => $processTimeS,
+            'observed_targets' => count($observedSites),
+        ]);
     }
 
     private function processOne(int $brandId, string $observedSite, LoggerInterface $logger): void
@@ -50,7 +56,7 @@ class HealthcheckCommand extends Command
                     ->get("https://best-obmen.com/api/directions/USDTTRC20/P24UAH")
                     ->status();
             } else {
-                $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($observedSite)->status();
+                $responseStatus = Http::get($observedSite)->status();
             }
         } catch (\Throwable $exception) {
             $logger->error('Could not process healthcheck target', [
