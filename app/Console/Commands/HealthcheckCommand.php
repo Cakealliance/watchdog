@@ -73,6 +73,12 @@ class HealthcheckCommand extends Command
         }
 
         if($responseStatus >= Response::HTTP_NOT_FOUND) {
+            $logger->error('Invalid response status', [
+                'response_status' => $responseStatus,
+                'request_time_s' => Carbon::now()->diffInSeconds($currentTime),
+                'target' => $observedSite,
+            ]);
+
             $checkedRegistryItem = $this->registerFailedCheck($checkedRegistryItem, $currentTime);
         } else {
             $checkedRegistryItem->total_checks += 1;
