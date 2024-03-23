@@ -1,7 +1,9 @@
 global:
-  scrape_interval: 15s
+  scrape_interval: 30s
 
 scrape_configs:
-  - job_name: 'laravel'
+  - job_name: 'best-obmen'
     static_configs:
-      - targets: ['laravel-app-container:80']
+      - targets: ['best-obmen.com:443']
+    scheme: https
+    metrics_path: /api/metrics
