@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command(HealthcheckCommand::class)->everyMinute()->withoutOverlapping();
+        $schedule->command(HealthcheckCommand::class)->everyMinute();
     }
 
     /**
