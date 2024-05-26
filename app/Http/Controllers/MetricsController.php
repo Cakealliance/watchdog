@@ -13,8 +13,6 @@ use Prometheus\CollectorRegistry;
 use Prometheus\RenderTextFormat;
 use Prometheus\Storage\InMemory;
 
-
-
 class MetricsController extends Controller
 {
     public function index(
@@ -60,18 +58,7 @@ class MetricsController extends Controller
                 ['site_name']
             );
 
-            $loadingTimes = $checkedRegistryItem->loading_time;
-            $loadingTimesValues = [];
-
-            foreach ($loadingTimes as $loadingTime) {
-                foreach ($loadingTime as $value) {
-                    $loadingTimesValues[] = $value;
-                }
-            }
-
-            $avgTime = (float)number_format(array_sum($loadingTimesValues)/count($loadingTimesValues), 2);
-
-            $averageLoadingTime->set($avgTime, [$checkedRegistryItem->site_name]);
+            $averageLoadingTime->set($loadingTimeMetrics->getAverageLoadingTime($checkedRegistryItem), [$checkedRegistryItem->site_name]);
 
             $todayLoadingTimes = $registry->registerCounter(
                 $appName,
@@ -80,19 +67,7 @@ class MetricsController extends Controller
                 ['time', 'site_name']
             );
 
-            $totalTodayLoadingTimes = [];
-
-            foreach ($checkedRegistryItem->loading_time as $loading_times ) {
-                foreach ($loading_times as $time => $loading_time) {
-                    $totalTodayLoadingTimes[] = [
-                        'loading_time' => $loading_time,
-                        'time' => $time,
-                        'site_name' => $checkedRegistryItem->site_name,
-                    ];
-                }
-            }
-
-            foreach ($totalTodayLoadingTimes as $row) {
+            foreach ($loadingTimeMetrics->getLoadingTimes($checkedRegistryItem) as $row) {
                 $todayLoadingTimes->incBy($row['loading_time'], [$row['time'], $row['site_name']]);
             }
 
@@ -125,18 +100,7 @@ class MetricsController extends Controller
                 ['site_name']
             );
 
-            $yesterdayLoadingTimes = $yesterdayCheckedRegistryItem->loading_time;
-            $yesterdayLoadingTimesValues = [];
-
-            foreach ($yesterdayLoadingTimes as $yesterdayLoadingTime) {
-                foreach ($yesterdayLoadingTime as $value) {
-                    $yesterdayLoadingTimesValues[] = $value;
-                }
-            }
-
-            $yesterdayAvgTime = (float)number_format(array_sum($yesterdayLoadingTimesValues)/count($yesterdayLoadingTimesValues), 2);
-
-            $yesterdayAverageLoadingTime->set($yesterdayAvgTime, [$yesterdayCheckedRegistryItem->site_name]);
+            $yesterdayAverageLoadingTime->set($loadingTimeMetrics->getAverageLoadingTime($yesterdayCheckedRegistryItem), [$yesterdayCheckedRegistryItem->site_name]);
 
             $yesterdayLoadingTimes = $registry->registerCounter(
                 $appName,
@@ -145,23 +109,10 @@ class MetricsController extends Controller
                 ['time', 'site_name']
             );
 
-            $totalYesterdayLoadingTimes = [];
-
-            foreach ($yesterdayCheckedRegistryItem->loading_time as $yesterdayTimes) {
-                foreach ($yesterdayTimes as $time => $loading_time) {
-                    $totalYesterdayLoadingTimes[] = [
-                        'loading_time' => $loading_time,
-                        'time' => $time,
-                        'site_name' => $checkedRegistryItem->site_name,
-                    ];
-                }
-            }
-
-            foreach ($totalYesterdayLoadingTimes as $row) {
+            foreach ($loadingTimeMetrics->getLoadingTimes($yesterdayCheckedRegistryItem) as $row) {
                 $yesterdayLoadingTimes->incBy($row['loading_time'], [$row['time'], $row['site_name']]);
             }
         }
-
 
         $renderer = new RenderTextFormat();
         $result = $renderer->render($registry->getMetricFamilySamples());

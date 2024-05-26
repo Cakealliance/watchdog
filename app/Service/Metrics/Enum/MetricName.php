@@ -14,6 +14,4 @@ enum MetricName: string
     case YESTERDAY_FAILED_CHECKS_LOADING_TIMES = 'yesterday_failed_checks_loading_times';
     case YESTERDAY_AVERAGE_LOADING_TIME = 'yesterday_average_loading_time';
     case YESTERDAY_LOADING_TIMES ='yesterday_loading_times';
-//    case YESTERDAY_CHECKS_LOADING_TIMES = 'yesterday_checks_loading_times';
-
 }

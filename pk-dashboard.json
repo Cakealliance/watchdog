@@ -22,72 +22,17 @@
     "links": [],
     "panels": [
         {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "admof33sdvsowc"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "#e00064",
-                                "value": null
-                            },
-                            {
-                                "color": "#e51397",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
-                "overrides": []
-            },
+            "collapsed": false,
             "gridPos": {
-                "h": 5,
-                "w": 6,
+                "h": 1,
+                "w": 24,
                 "x": 0,
                 "y": 0
             },
-            "id": 3,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "auto",
-                "wideLayout": true
-            },
-            "pluginVersion": "10.4.0",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "prometheus",
-                        "uid": "admof33sdvsowc"
-                    },
-                    "editorMode": "code",
-                    "expr": "Watchdog_today_failed_checks_loading_times1",
-                    "instant": false,
-                    "legendFormat": "__auto",
-                    "range": true,
-                    "refId": "A"
-                }
-            ],
-            "title": "Today failed checks",
-            "type": "stat"
+            "id": 13,
+            "panels": [],
+            "title": "Today",
+            "type": "row"
         },
         {
             "datasource": {
@@ -119,8 +64,8 @@
             "gridPos": {
                 "h": 5,
                 "w": 6,
-                "x": 9,
-                "y": 0
+                "x": 0,
+                "y": 1
             },
             "id": 1,
             "options": {
@@ -154,7 +99,75 @@
                     "refId": "A"
                 }
             ],
-            "title": "Today total check",
+            "title": "Today total checks (from 00:00)",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "#e00064",
+                                "value": null
+                            },
+                            {
+                                "color": "#e51397",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 6,
+                "x": 9,
+                "y": 1
+            },
+            "id": 9,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times1",
+                    "instant": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Today failed checks (from 00:00)",
             "type": "stat"
         },
         {
@@ -180,7 +193,8 @@
                                 "value": 80
                             }
                         ]
-                    }
+                    },
+                    "unit": "s"
                 },
                 "overrides": []
             },
@@ -188,7 +202,7 @@
                 "h": 5,
                 "w": 6,
                 "x": 18,
-                "y": 0
+                "y": 1
             },
             "id": 2,
             "options": {
@@ -222,7 +236,7 @@
                     "refId": "A"
                 }
             ],
-            "title": "AVG loading time for today",
+            "title": "AVG loading time for today (from 00:00)",
             "type": "stat"
         },
         {
@@ -282,7 +296,8 @@
                                 "value": 10
                             }
                         ]
-                    }
+                    },
+                    "unit": "s"
                 },
                 "overrides": []
             },
@@ -290,14 +305,14 @@
                 "h": 7,
                 "w": 24,
                 "x": 0,
-                "y": 5
+                "y": 6
             },
             "id": 6,
             "options": {
                 "barRadius": 0,
                 "barWidth": 0.97,
                 "fullHighlight": true,
-                "groupWidth": 0.7,
+                "groupWidth": 1,
                 "legend": {
                     "calcs": [],
                     "displayMode": "list",
@@ -330,95 +345,8 @@
                     "refId": "A"
                 }
             ],
-            "title": "Panel Title",
+            "title": "Today site loading times (from 00:00)",
             "type": "barchart"
-        },
-        {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "admof33sdvsowc"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "min": 0,
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "#46f214",
-                                "value": 0
-                            },
-                            {
-                                "color": "#e2ec05",
-                                "value": 3
-                            },
-                            {
-                                "color": "#ff860e",
-                                "value": 5
-                            },
-                            {
-                                "color": "#ed1580",
-                                "value": 10
-                            }
-                        ]
-                    },
-                    "unit": "short"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 6,
-                "w": 24,
-                "x": 0,
-                "y": 12
-            },
-            "id": 4,
-            "options": {
-                "displayMode": "gradient",
-                "maxVizHeight": 300,
-                "minVizHeight": 16,
-                "minVizWidth": 58,
-                "namePlacement": "auto",
-                "orientation": "vertical",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "showUnfilled": true,
-                "sizing": "manual",
-                "valueMode": "color"
-            },
-            "pluginVersion": "10.4.0",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "prometheus",
-                        "uid": "admof33sdvsowc"
-                    },
-                    "editorMode": "code",
-                    "exemplar": false,
-                    "expr": "Watchdog_today_loading_times1",
-                    "format": "time_series",
-                    "instant": false,
-                    "interval": "",
-                    "legendFormat": "{{time}}",
-                    "range": true,
-                    "refId": "A"
-                }
-            ],
-            "title": "Panel Title",
-            "type": "bargauge"
         },
         {
             "datasource": {
@@ -466,7 +394,7 @@
                 "h": 4,
                 "w": 24,
                 "x": 0,
-                "y": 18
+                "y": 13
             },
             "id": 5,
             "options": {
@@ -509,9 +437,423 @@
                     "refId": "A"
                 }
             ],
-            "title": "Panel Title",
+            "title": "Today site loading time",
             "transparent": true,
             "type": "bargauge"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#46f214",
+                                "value": 0
+                            },
+                            {
+                                "color": "#e2ec05",
+                                "value": 3
+                            },
+                            {
+                                "color": "#ff860e",
+                                "value": 5
+                            },
+                            {
+                                "color": "#ed1580",
+                                "value": 10
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 24,
+                "x": 0,
+                "y": 17
+            },
+            "id": 4,
+            "options": {
+                "displayMode": "gradient",
+                "maxVizHeight": 300,
+                "minVizHeight": 16,
+                "minVizWidth": 58,
+                "namePlacement": "auto",
+                "orientation": "vertical",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showUnfilled": true,
+                "sizing": "manual",
+                "valueMode": "color"
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "exemplar": false,
+                    "expr": "Watchdog_today_loading_times1",
+                    "format": "time_series",
+                    "instant": false,
+                    "interval": "",
+                    "legendFormat": "{{time}}",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Today site loading time (from 00:00)",
+            "type": "bargauge"
+        },
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 26
+            },
+            "id": 12,
+            "panels": [],
+            "title": "Yesterday",
+            "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "#f311eb",
+                                "value": null
+                            },
+                            {
+                                "color": "#3ef118",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 5,
+                "x": 0,
+                "y": 27
+            },
+            "id": 7,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_checks_loading_times1\n",
+                    "instant": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Yesterday total checks ",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "#e00064",
+                                "value": null
+                            },
+                            {
+                                "color": "#e51397",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 5,
+                "x": 6,
+                "y": 27
+            },
+            "id": 3,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times1",
+                    "instant": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Yesterday failed checks",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "#bfef00",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 5,
+                "x": 12,
+                "y": 27
+            },
+            "id": 10,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time1",
+                    "instant": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Yesterday AVG loading time",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "dark-purple",
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "fillOpacity": 62,
+                        "gradientMode": "scheme",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineWidth": 1,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "#46f214",
+                                "value": null
+                            },
+                            {
+                                "color": "#46f214",
+                                "value": 0
+                            },
+                            {
+                                "color": "#e2ec05",
+                                "value": 3
+                            },
+                            {
+                                "color": "#ff860e",
+                                "value": 5
+                            },
+                            {
+                                "color": "#ed1580",
+                                "value": 10
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 24,
+                "x": 0,
+                "y": 31
+            },
+            "id": 11,
+            "options": {
+                "barRadius": 0,
+                "barWidth": 0.97,
+                "fullHighlight": true,
+                "groupWidth": 1,
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": false
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                },
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 0
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "exemplar": false,
+                    "expr": "Watchdog_yesterday_loading_times1\n",
+                    "format": "time_series",
+                    "instant": true,
+                    "legendFormat": "__auto",
+                    "range": false,
+                    "refId": "A"
+                }
+            ],
+            "title": "Yesterday site loading times",
+            "type": "barchart"
         }
     ],
     "schemaVersion": 39,
@@ -527,6 +869,6 @@
     "timezone": "browser",
     "title": "New dashboard",
     "uid": "cdmoh7ecsm58gd",
-    "version": 13,
+    "version": 16,
     "weekStart": ""
 }
