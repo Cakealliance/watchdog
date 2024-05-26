@@ -78,27 +78,34 @@ services:
     prometheus:
         image: prom/prometheus
         networks:
-          - default
+            - default
         volumes:
-          - ./prometheus.yml:/etc/prometheus/prometheus.yml
+            - prometheus:/etc/prometheus
+            - prometheus_data:/prometheus
         ports:
-          - '9090:9090'
+            - '9090:9090'
         depends_on:
-          - php
-          - nginx
+            - php
+            - nginx
 
     grafana:
         image: grafana/grafana
         networks:
-          - default
+            - default
         ports:
-          - '3000:3000'
+            - '3000:3000'
+        volumes:
+            - grafana:/var/lib/grafana
         depends_on:
-          - php
-          - nginx
+            - php
+            - nginx
+
 volumes:
     mysql:
     redis:
+    prometheus:
+    prometheus_data:
+    grafana:
 
 networks:
     default:
