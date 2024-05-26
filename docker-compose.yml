@@ -80,6 +80,8 @@ services:
         networks:
           - default
         volumes:
+          - prometheus:/etc/prometheus
+          - prometheus_data:/prometheus
           - ./prometheus.yml:/etc/prometheus/prometheus.yml
         ports:
           - '9090:9090'
@@ -99,6 +101,9 @@ services:
 volumes:
     mysql:
     redis:
+    prometheus:
+    prometheus_data:
+    grafana:
 
 networks:
     default:

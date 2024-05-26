@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HealthcheckCommand extends Command
 {
-    private const TIMEOUT_SECONDS = 15;
+    private const TIMEOUT_SECONDS = 30;
 
     protected $signature = 'healthcheck:run';
 
@@ -52,11 +52,17 @@ class HealthcheckCommand extends Command
 
         try {
             if ($brandId === 5) {
+                $requestStartTime = Carbon::now();
                 $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)
                     ->get("https://best-obmen.com/api/directions/USDTTRC20/P24UAH")
                     ->status();
+                $responseTime = Carbon::now()->diffInMilliseconds($requestStartTime);
             } else {
-                $responseStatus = Http::get($observedSite)->status();
+                $requestStartTime = Carbon::now();
+                $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)
+                    ->get($observedSite)
+                    ->status();
+                $responseTime = Carbon::now()->diffInMilliseconds($requestStartTime);
             }
         } catch (\Throwable $exception) {
             $logger->error('Could not process healthcheck target', [
@@ -82,6 +88,12 @@ class HealthcheckCommand extends Command
             $checkedRegistryItem = $this->registerFailedCheck($checkedRegistryItem, $currentTime);
         } else {
             $checkedRegistryItem->total_checks += 1;
+
+            $loadingTimes = $checkedRegistryItem->loading_time;
+            $loadingTimes[] = [
+                $currentTime->toTimeString() => (float)number_format($responseTime/1000, 2),
+            ];
+            $checkedRegistryItem->loading_time = $loadingTimes;
         }
         $checkedRegistryItem->save();
     }

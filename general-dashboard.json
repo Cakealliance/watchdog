@@ -1,0 +1,2049 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 2,
+    "links": [],
+    "panels": [
+        {
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 12,
+            "title": "Today",
+            "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "description": "from 00:00",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "#72e618",
+                        "mode": "fixed"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 3,
+                "x": 3,
+                "y": 1
+            },
+            "id": 5,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_checks_loading_times1{}",
+                    "instant": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Today checks ",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#15f011",
+                                "value": 0
+                            },
+                            {
+                                "color": "#e2ec05",
+                                "value": 3
+                            },
+                            {
+                                "color": "#eab218",
+                                "value": 5
+                            },
+                            {
+                                "color": "semi-dark-orange",
+                                "value": 10
+                            },
+                            {
+                                "color": "#eb3895",
+                                "value": 15
+                            },
+                            {
+                                "color": "#ea1340",
+                                "value": 20
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 24,
+                "x": 0,
+                "y": 5
+            },
+            "id": 4,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "text": {
+                    "titleSize": 15
+                },
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times1",
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times2",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "B"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times4",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times5",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "C"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times6",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "E"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times7",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "F"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times8",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "G"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times9",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "H"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times10",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "I"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times11",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "J"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times12",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "K"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times13",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "L"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times14",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "M"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times15",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "N"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times16",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "O"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times17",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "P"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_failed_checks_loading_times20",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "Q"
+                }
+            ],
+            "title": "Today failed checks (from 00:00)",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "fieldMinMax": false,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#15f011",
+                                "value": 0
+                            },
+                            {
+                                "color": "#d1fa2d",
+                                "value": 5
+                            },
+                            {
+                                "color": "#e7c519",
+                                "value": 10
+                            },
+                            {
+                                "color": "#ee8d0b",
+                                "value": 15
+                            },
+                            {
+                                "color": "#ec16a7",
+                                "value": 20
+                            },
+                            {
+                                "color": "#fb0808",
+                                "value": 25
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 12
+            },
+            "id": 2,
+            "options": {
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "text": {}
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time1",
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time2",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "B"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time4",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "C"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time5",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time6",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "E"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time7",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "F"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time8",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "G"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time9",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "H"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time10",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "I"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time11",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "J"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time12",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "K"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time13",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "L"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time14",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "M"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time15",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "N"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time16",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "O"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time17",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "P"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time20",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "Q"
+                }
+            ],
+            "title": "Today AVG loading time (from 00:00)",
+            "type": "gauge"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "#ed1acf",
+                        "mode": "shades"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "hue",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineStyle": {
+                            "fill": "solid"
+                        },
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#18bfeb",
+                                "value": 0
+                            },
+                            {
+                                "color": "#0d81e7",
+                                "value": 3
+                            },
+                            {
+                                "color": "#9a48d2",
+                                "value": 5
+                            },
+                            {
+                                "color": "#e316e7",
+                                "value": 10
+                            },
+                            {
+                                "color": "#e418a2",
+                                "value": 20
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 12,
+                "w": 24,
+                "x": 0,
+                "y": 20
+            },
+            "id": 3,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time1",
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time2",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "B"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time4",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "C"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time5",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time6",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "E"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time7",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "F"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time8",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "G"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time9",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "H"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time10",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "I"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time11",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "J"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time12",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "K"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time13",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "L"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time14",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "M"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time15",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "N"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time16",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "O"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time17",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "P"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_today_average_loading_time20",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "Q"
+                }
+            ],
+            "title": "Today AVG loading time (from 00:00)",
+            "type": "timeseries"
+        },
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 32
+            },
+            "id": 11,
+            "panels": [],
+            "title": "Yesterday",
+            "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "description": "from 00:00",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "#09eed6",
+                        "mode": "fixed"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 4,
+                "x": 2,
+                "y": 33
+            },
+            "id": 6,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_checks_loading_times1",
+                    "instant": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Yesterday total checks ",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "light-blue",
+                                "value": 0
+                            },
+                            {
+                                "color": "blue",
+                                "value": 3
+                            },
+                            {
+                                "color": "dark-blue",
+                                "value": 5
+                            },
+                            {
+                                "color": "semi-dark-purple",
+                                "value": 10
+                            },
+                            {
+                                "color": "#eb38d6",
+                                "value": 15
+                            },
+                            {
+                                "color": "#eb1372",
+                                "value": 20
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 24,
+                "x": 0,
+                "y": 38
+            },
+            "id": 10,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showPercentChange": false,
+                "text": {
+                    "titleSize": 15
+                },
+                "textMode": "auto",
+                "wideLayout": true
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times1",
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times2",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "B"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times4",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times5",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "C"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times6",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "E"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times7",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "F"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times8",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "G"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times9",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "H"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times10",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "I"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times11",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "J"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times12",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "K"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times13",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "L"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times14",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "M"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times15",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "N"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times16",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "O"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_failed_checks_loading_times17",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "P"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterdayy_failed_checks_loading_times20",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "Q"
+                }
+            ],
+            "title": "Today failed checks (from 00:00)",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "#ed1acf",
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "hue",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineStyle": {
+                            "fill": "solid"
+                        },
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#18bfeb",
+                                "value": 0
+                            },
+                            {
+                                "color": "#0d81e7",
+                                "value": 3
+                            },
+                            {
+                                "color": "#9a48d2",
+                                "value": 5
+                            },
+                            {
+                                "color": "#e316e7",
+                                "value": 10
+                            },
+                            {
+                                "color": "#e418a2",
+                                "value": 20
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 12,
+                "w": 24,
+                "x": 0,
+                "y": 45
+            },
+            "id": 8,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time1",
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time2",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "B"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time4",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "C"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time5",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time6",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "E"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time7",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "F"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time8",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "G"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time9",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "H"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time10",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "I"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time11",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "J"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time12",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "K"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time13",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "L"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time14",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "M"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time15",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "N"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time16",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "O"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time17",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "P"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time20",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "Q"
+                }
+            ],
+            "title": "Yesterday AVG loading time",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "admof33sdvsowc"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "fieldMinMax": false,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#15f011",
+                                "value": 0
+                            },
+                            {
+                                "color": "#d1fa2d",
+                                "value": 5
+                            },
+                            {
+                                "color": "#e7c519",
+                                "value": 10
+                            },
+                            {
+                                "color": "#ee8d0b",
+                                "value": 15
+                            },
+                            {
+                                "color": "#ec16a7",
+                                "value": 20
+                            },
+                            {
+                                "color": "#fb0808",
+                                "value": 25
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 57
+            },
+            "id": 9,
+            "options": {
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "text": {}
+            },
+            "pluginVersion": "10.4.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time1",
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time2",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "B"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time4",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "C"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time5",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "D"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time6",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "E"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time7",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "F"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time8",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "G"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time9",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "H"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time10",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "I"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time11",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "J"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time12",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "K"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time13",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "L"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time14",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "M"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time15",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "N"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time16",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "O"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time17",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "P"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "admof33sdvsowc"
+                    },
+                    "editorMode": "code",
+                    "expr": "Watchdog_yesterday_average_loading_time20",
+                    "hide": false,
+                    "instant": false,
+                    "legendFormat": "{{site_name}}",
+                    "range": true,
+                    "refId": "Q"
+                }
+            ],
+            "title": "Yesterday AVG loading time ",
+            "type": "gauge"
+        }
+    ],
+    "refresh": "",
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+        "list": []
+    },
+    "time": {
+        "from": "now-6h",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "General dashboard",
+    "uid": "ddmpsvm6tydxcb",
+    "version": 12,
+    "weekStart": ""
+}

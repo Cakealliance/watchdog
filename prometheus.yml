@@ -7,3 +7,16 @@ scrape_configs:
       - targets: ['best-obmen.com:443']
     scheme: https
     metrics_path: /api/metrics
+
+  - job_name: 'obmenoff'
+    static_configs:
+      - targets: ['obmenoff.cc:443']
+    scheme: https
+    metrics_path: /api/metrics
+
+  - job_name: 'laravel'
+    static_configs:
+      - targets: ['nginx:80']
+    metrics_path: /api/metrics
+
+

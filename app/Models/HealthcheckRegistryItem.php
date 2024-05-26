@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $total_checks
  * @property int $failed_checks
  * @property array|null $failed_checks_timestamps
+ * @property array|null $loading_time
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -23,6 +24,7 @@ class HealthcheckRegistryItem extends Model
     protected $table = 'healthcheck_registry';
 
     protected $casts = [
-        'failed_checks_timestamps' => 'array'
+        'failed_checks_timestamps' => 'array',
+        'loading_time' => 'array',
     ];
 }
