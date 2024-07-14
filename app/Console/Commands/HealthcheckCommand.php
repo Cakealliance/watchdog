@@ -17,7 +17,7 @@ class HealthcheckCommand extends Command
 
     protected $signature = 'healthcheck:run';
 
-    public function handle(LoggerInterface $logger)
+    public function handle(LoggerInterface $logger): void
     {
         $observedSites = config('healthcheck.targets');
 

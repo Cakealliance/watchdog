@@ -7,7 +7,7 @@ services:
             dockerfile: Dockerfile
         restart: unless-stopped
         ports:
-            - "80:80"
+            - "8080:80"
         volumes:
             - ./:/var/www
         depends_on:
@@ -78,27 +78,32 @@ services:
     prometheus:
         image: prom/prometheus
         networks:
-          - default
+            - default
         volumes:
-          - ./prometheus.yml:/etc/prometheus/prometheus.yml
+            - prometheus:/prometheus
+            - ./prometheus.yml:/etc/prometheus/prometheus.yml
         ports:
-          - '9090:9090'
+            - '9090:9090'
         depends_on:
-          - php
-          - nginx
+            - php
+            - nginx
 
     grafana:
         image: grafana/grafana
         networks:
-          - default
+            - default
         ports:
-          - '3000:3000'
+            - '3000:3000'
+        volumes:
+            - grafana:/var/lib/grafana
         depends_on:
-          - php
-          - nginx
+            - php
+            - nginx
 volumes:
     mysql:
     redis:
+    prometheus:
+    grafana:
 
 networks:
     default:
