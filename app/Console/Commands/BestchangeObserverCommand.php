@@ -43,8 +43,19 @@ class BestchangeObserverCommand extends Command
 
         $changers = $this->client->changers();
         foreach ($observedSites as $brandId => $url) {
-            if (in_array($brandId, self::LARAVEL_BRANDS, true)) {
-                $this->processOne($brandId, $url, $changers);
+            try {
+                if (in_array($brandId, self::LARAVEL_BRANDS, true)) {
+                    $this->processOne($brandId, $url, $changers);
+                }
+            } catch (\Throwable $exception) {
+                $this->logger->error(__CLASS__ . ": processing failed", [
+                    'brand_id' => $brandId,
+                    'url' => $url,
+                    'error_message' => $exception->getMessage(),
+                    'trace' => substr($exception->getTraceAsString(), 0, 1000),
+                ]);
+
+                continue;
             }
         }
     }

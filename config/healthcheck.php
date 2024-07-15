@@ -6,7 +6,7 @@ return [
         2 => 'https://uachanger.com',
         3 => 'https://bitok777.net',
         4 => 'https://w-box.io',
-        5 => 'https://best-obmen.com',
+        5 => 'https://best-obmen.co',
         6 => 'https://first-btc.com',
         7 => 'https://wx.money',
         8 => 'https://2rbina.net',
