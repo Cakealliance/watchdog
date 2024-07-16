@@ -19,9 +19,9 @@ class BestchangeObserverCommand extends Command
         1, 3, 5, 6, 7, 16, 21, 22
     ];
 
-    private const STATUS_DISABLED_BY_BESTCHANGE = 0.1;
+    private const STATUS_DISABLED_BY_BESTCHANGE = 0.5;
     private const STATUS_ACTIVE = 1;
-    private const STATUS_UNAVAILABLE = 0.5; // technical works or server error
+    private const STATUS_UNAVAILABLE = 0.1; // technical works or server error
 
     private const TIMEOUT_SECONDS = 15;
 
