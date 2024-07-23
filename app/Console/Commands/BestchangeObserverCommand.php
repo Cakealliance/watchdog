@@ -16,12 +16,13 @@ use Psr\Log\LoggerInterface;
 class BestchangeObserverCommand extends Command
 {
     private const LARAVEL_BRANDS = [
-        1, 3, 5, 6, 7, 16, 21, 22
+        1, 3, 5, 6, 7, 12, 16, 21, 22
     ];
 
     private const STATUS_DISABLED_BY_BESTCHANGE = 0.5;
     private const STATUS_ACTIVE = 1;
-    private const STATUS_UNAVAILABLE = 0.1; // technical works or server error
+    private const STATUS_UNAVAILABLE = 0.1; // technical works
+    private const STATUS_SERVER_ERROR = 0.2;
 
     private const TIMEOUT_SECONDS = 15;
 
@@ -90,14 +91,13 @@ class BestchangeObserverCommand extends Command
                 'response_status' => $response->status(),
                 'response_body' => $response->body(),
             ]);
-            $metric->set(self::STATUS_UNAVAILABLE);
+            $metric->set(self::STATUS_SERVER_ERROR);
             return;
         }
         $isInMaintenanceMode = json_decode(
             $response->body(),
             true
         )['data']['maintenance_mode']['enabled'];
-
 
         $metric->set($isInMaintenanceMode ? self::STATUS_UNAVAILABLE : self::STATUS_ACTIVE);
     }
