@@ -20,22 +20,10 @@ class PrometheusService
     {
         $renderer = new RenderTextFormat();
 
-        $result = $renderer->render( $this->collectorRegistry->getMetricFamilySamples() );
+        $result = $renderer->render($this->collectorRegistry->getMetricFamilySamples());
 
-        header( 'Content-type: ' . RenderTextFormat::MIME_TYPE );
+        header('Content-type: ' . RenderTextFormat::MIME_TYPE);
 
         return $result;
-    }
-
-    public function createTestOrder($count = 1): void
-    {
-        $counter = $this->collectorRegistry->getOrRegisterCounter(
-            'test_orders',
-            'count',
-            'Number of Orders',
-            ['category'],
-        );
-
-        $counter->incBy($count, ['korets debug']);
     }
 }

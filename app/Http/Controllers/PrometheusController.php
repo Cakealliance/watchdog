@@ -16,11 +16,4 @@ class PrometheusController extends Controller
     {
         return $this->service->metrics();
     }
-
-    public function createTestOrder(): JsonResponse
-    {
-        $this->service->createTestOrder();
-
-        return new JsonResponse("OK");
-    }
 }

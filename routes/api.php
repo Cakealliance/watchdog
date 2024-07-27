@@ -19,4 +19,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('metrics', [\App\Http\Controllers\PrometheusController::class, 'metrics']);
-Route::get('metrics/test', [\App\Http\Controllers\PrometheusController::class, 'createTestOrder']);
