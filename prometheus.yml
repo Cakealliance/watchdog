@@ -12,3 +12,21 @@ scrape_configs:
     static_configs:
       - targets: ['bitok777.net']
     metrics_path: /api/metrics
+
+  - job_name: 'exchanges'
+    scrape_interval: 60s
+    static_configs:
+      - targets: ['first-btc.com']
+    metrics_path: /api/metrics
+
+  - job_name: 'exchanges'
+    scrape_interval: 60s
+    static_configs:
+      - targets: ['obmenoff.cc']
+    metrics_path: /api/metrics
+
+  - job_name: 'exchanges'
+    scrape_interval: 60s
+    static_configs:
+      - targets: ['best-obmen.co']
+    metrics_path: /api/metrics
