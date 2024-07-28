@@ -7,26 +7,8 @@ scrape_configs:
       - targets: ['nginx:80']
     metrics_path: /api/metrics
 
-  - job_name: 'exchange-bitok777'
+  - job_name: 'exchanges'
     scrape_interval: 60s
     static_configs:
-      - targets: ['bitok777.net']
-    metrics_path: /api/metrics
-
-  - job_name: 'exchange-first-btc'
-    scrape_interval: 60s
-    static_configs:
-      - targets: ['first-btc.com']
-    metrics_path: /api/metrics
-
-  - job_name: 'exchange-obmenoff'
-    scrape_interval: 60s
-    static_configs:
-      - targets: ['obmenoff.cc']
-    metrics_path: /api/metrics
-
-  - job_name: 'exchange-bestobmen'
-    scrape_interval: 60s
-    static_configs:
-      - targets: ['best-obmen.co']
+      - targets: ['best-obmen.co', 'bitok777.net', 'first-btc.com', 'obmenoff.cc', 'wx.money', 'kz007.org', 'obmen.money', 'exchange.express', 'turrbobot.com', 'appbit.net']
     metrics_path: /api/metrics
