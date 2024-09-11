@@ -1,5 +1,5 @@
 global:
-  scrape_interval: 5s
+  scrape_interval: 10s
 
 scrape_configs:
   - job_name: 'watchdog'
@@ -10,5 +10,18 @@ scrape_configs:
   - job_name: 'exchanges'
     scrape_interval: 60s
     static_configs:
-      - targets: ['best-obmen.co', 'bitok777.net', 'first-btc.com', 'obmenoff.cc', 'wx.money', 'kz007.org', 'obmen.money', 'exchange.express', 'turrbobot.com', 'appbit.net']
+      - targets: [
+        'best-obmen.co',
+        'bitok777.net',
+        'first-btc.io',
+        'obmenoff.cc',
+        'wx.money',
+        'kz007.org',
+        'obmen.money',
+        'exchange.express',
+        'turrbobot.com',
+        'appbit.net',
+        '1wm.io',
+        'uachanger.com'
+      ]
     metrics_path: /api/metrics
