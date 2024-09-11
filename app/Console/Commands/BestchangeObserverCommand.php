@@ -16,7 +16,7 @@ use Psr\Log\LoggerInterface;
 class BestchangeObserverCommand extends Command
 {
     private const LARAVEL_BRANDS = [
-        1, 3, 5, 6, 7, 12, 16, 21, 22
+        1, 2, 3, 5, 6, 7, 10, 12, 16, 21, 22
     ];
 
     private const STATUS_DISABLED_BY_BESTCHANGE = 0.5;
