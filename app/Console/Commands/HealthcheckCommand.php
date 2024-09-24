@@ -20,6 +20,7 @@ class HealthcheckCommand extends Command
     public function handle(LoggerInterface $logger): void
     {
         $observedSites = config('healthcheck.targets');
+        $observedSites['oasis-chain'] = 'https://oasis-chain.cakealliance.international';
 
         $startTime = Carbon::now();
         foreach ($observedSites as $brandId => $observedSite) {
