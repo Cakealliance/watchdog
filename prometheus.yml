@@ -22,6 +22,7 @@ scrape_configs:
         'turrbobot.com',
         'appbit.net',
         '1wm.io',
-        'uachanger.com'
+        'uachanger.com',
+        'vobmenka.com',
       ]
     metrics_path: /api/metrics
