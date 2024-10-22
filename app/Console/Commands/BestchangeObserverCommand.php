@@ -11,6 +11,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Prometheus\CollectorRegistry;
+use Prometheus\Gauge;
 use Psr\Log\LoggerInterface;
 
 class BestchangeObserverCommand extends Command
@@ -29,6 +30,9 @@ class BestchangeObserverCommand extends Command
     protected $signature = 'bestchange:observe';
 
     private CollectorRegistry $collectorRegistry;
+    private Gauge $claimGauge;
+    private Gauge $neutralGauge;
+    private Gauge $positiveGauge;
 
     public function __construct(
         private readonly LoggerInterface $logger,
@@ -40,9 +44,20 @@ class BestchangeObserverCommand extends Command
     public function handle(CollectorRegistry $collectorRegistry): void
     {
         $this->collectorRegistry = $collectorRegistry->getDefault();
+        $this->claimGauge = $this->collectorRegistry->getOrRegisterGauge(
+            'bestchange_ru_reviews', 'claim', 'Active financial claims', ['project']
+        );
+        $this->neutralGauge = $this->collectorRegistry->getOrRegisterGauge(
+            'bestchange_ru_reviews', 'neutral', 'Negative reviews', ['project']
+        );
+        $this->positiveGauge = $this->collectorRegistry->getOrRegisterGauge(
+            'bestchange_ru_reviews', 'positive', 'Positive reviews', ['project']
+        );
+
         $observedSites = config('healthcheck.targets');
 
         $changers = $this->client->changers();
+
         foreach ($observedSites as $brandId => $url) {
             try {
                 if (in_array($brandId, self::LARAVEL_BRANDS, true)) {
@@ -61,6 +76,13 @@ class BestchangeObserverCommand extends Command
         }
     }
 
+    private function collectReviewsMetrics(Changer $changer): void
+    {
+        $this->claimGauge->set($changer->reviews->claim, [$changer->name]);
+        $this->neutralGauge->set($changer->reviews->neutral, [$changer->name]);
+        $this->positiveGauge->set($changer->reviews->positive, [$changer->name]);
+    }
+
     private function processOne(int $brandId, string $url, Collection $changers): void
     {
         $changerId = BrandDictionary::getIdByBrandId($brandId);
@@ -73,6 +95,9 @@ class BestchangeObserverCommand extends Command
         }
 
         $changer = $this->findChanger($changerId, $changers);
+
+        $this->collectReviewsMetrics($changer);
+
         $metric = $this->collectorRegistry->getOrRegisterGauge(
             "Watchdog",
             "status_on_bestchange" . $brandId,
