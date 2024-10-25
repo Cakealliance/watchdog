@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\BestchangeObserverCommand;
 use App\Console\Commands\HealthcheckCommand;
 use App\Console\Commands\PingCommand;
+use App\Console\Commands\VirusTotalScan;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,6 +19,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(HealthcheckCommand::class)->everyMinute()->withoutOverlapping(10);
         $schedule->command(PingCommand::class)->everyMinute()->withoutOverlapping(10);
         $schedule->command(BestchangeObserverCommand::class)->everyMinute()->withoutOverlapping(10);
+        $schedule->command(VirusTotalScan::class)->daily()->withoutOverlapping(10);
     }
 
     /**

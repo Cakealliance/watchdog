@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Contracts\ReportableToSlackInterface;
+use App\External\Slack\Client\Client as SlackClient;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,6 +29,18 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             if (config()->get('app.sentry_enabled') && app()->bound('sentry')) {
                 app('sentry')->captureException($e);
+            }
+
+            if ($e instanceof ReportableToSlackInterface) {
+                /** @var SlackClient $slackClient */
+                $slackClient = app(SlackClient::class);
+                if ('production' === config()->get('app.env')) {
+                    $slackClient->sendMessage($e->toSlack());
+                } else {
+                    Log::debug('Sending error message to Slack.', [
+                        'message' => $e->toSlack(),
+                    ]);
+                }
             }
         });
     }
