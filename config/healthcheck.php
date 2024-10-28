@@ -24,9 +24,10 @@ return [
 
 
         100 => 'https://flashexchanger.com',
-        101 => 'https://chathub.cakealliance.international',
+        101 => 'https://chathub.cakealliance.international/admin/login',
         102 => 'https://demo.cakealliance.international',
         103 => 'https://eye-of-sauron.cakealliance.international',
         104 => 'https://kursoff.biz',
+        105 => 'https://oasis.cakealliance.international',
     ]
 ];
