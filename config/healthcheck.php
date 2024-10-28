@@ -21,5 +21,12 @@ return [
         20 => 'https://fastex.su',
         21 => 'https://obmen.money',
         22 => 'https://exchange.express',
+
+
+        100 => 'https://flashexchanger.com',
+        101 => 'https://chathub.cakealliance.international',
+        102 => 'https://demo.cakealliance.international',
+        103 => 'https://eye-of-sauron.cakealliance.international',
+        104 => 'https://kursoff.biz',
     ]
 ];
