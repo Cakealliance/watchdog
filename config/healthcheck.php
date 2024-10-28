@@ -22,7 +22,6 @@ return [
         21 => 'https://obmen.money',
         22 => 'https://exchange.express',
 
-
         100 => 'https://flashexchanger.com',
         101 => 'https://chathub.cakealliance.international/admin/login',
         102 => 'https://demo.cakealliance.international',

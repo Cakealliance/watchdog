@@ -71,7 +71,7 @@ class HealthcheckCommand extends Command
         }
 
         try {
-            $responseStatus = Http::get($observedSite)->status();
+            $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($observedSite)->status();
         } catch (\Throwable $exception) {
             $logger->error('Could not process healthcheck target', [
                 'brand_id' => $brandId,
