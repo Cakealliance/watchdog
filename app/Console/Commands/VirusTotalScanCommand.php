@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Infrastructure\QueueEnum;
-use App\Jobs\LaunchVirusTotalScan;
 use App\Jobs\ScheduleVirusTotalChunkScan;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Config\Repository;
 use Throwable;
 
-class VirusTotalScan extends Command
+class VirusTotalScanCommand extends Command
 {
     protected $signature = 'virus-total:scan';
 
