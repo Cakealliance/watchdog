@@ -8,6 +8,7 @@ use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Config\Repository;
+use Symfony\Component\HttpFoundation\Response;
 
 class Client
 {
@@ -34,7 +35,7 @@ class Client
         try {
             $response = $this->httpClient->post($this->webhookUrl, $payload);
 
-            if (200 !== $response->getStatusCode()) {
+            if (Response::HTTP_OK !== $response->getStatusCode()) {
                 throw new Exception("Failed to send message to Slack: {$response->getBody()}");
             }
         } catch (GuzzleException $e) {
