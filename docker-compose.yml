@@ -7,7 +7,7 @@ services:
             dockerfile: Dockerfile
         restart: unless-stopped
         ports:
-            - "99:80"
+            - "8080:80"
         volumes:
             - ./:/var/www
         depends_on:
@@ -46,7 +46,7 @@ services:
             dockerfile: Dockerfile
         restart: unless-stopped
         ports:
-            - "3310:3306"
+            - "3306:3306"
         environment:
             MYSQL_DATABASE: $DB_DATABASE
             MYSQL_USER: $DB_USERNAME
@@ -62,7 +62,7 @@ services:
             dockerfile: Dockerfile
         restart: unless-stopped
         ports:
-            - "6399:6379"
+            - "6379:6379"
         volumes:
             - redis:/data
 
@@ -83,7 +83,7 @@ services:
             - prometheus:/prometheus
             - ./prometheus.yml:/etc/prometheus/prometheus.yml
         ports:
-            - '9999:9090'
+            - '9090:9090'
         depends_on:
             - php
             - nginx
@@ -93,7 +93,7 @@ services:
         networks:
             - default
         ports:
-            - '3333:3000'
+            - '3000:3000'
         volumes:
             - grafana:/var/lib/grafana
         depends_on:
