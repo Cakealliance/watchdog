@@ -24,7 +24,7 @@ class HealthcheckCommand extends Command
     {
         $this->collectorRegistry = $collectorRegistry->getDefault();
         $observedSites = config('healthcheck.targets');
-        $observedSites['oasis-chain'] = 'http://134.209.246.227:8081/healthcheck';
+//        $observedSites['oasis-chain'] = 'http://134.209.246.227:8081/healthcheck';
 
         $startTime = Carbon::now();
         foreach ($observedSites as $brandId => $observedSite) {
@@ -71,13 +71,7 @@ class HealthcheckCommand extends Command
         }
 
         try {
-            if ($brandId === 5) {
-                $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)
-                    ->get("https://best-obmen.com/api/directions/USDTTRC20/P24UAH")
-                    ->status();
-            } else {
-                $responseStatus = Http::get($observedSite)->status();
-            }
+            $responseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($observedSite)->status();
         } catch (\Throwable $exception) {
             $logger->error('Could not process healthcheck target', [
                 'brand_id' => $brandId,

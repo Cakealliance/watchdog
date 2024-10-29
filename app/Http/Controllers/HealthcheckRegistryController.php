@@ -83,6 +83,9 @@ class HealthcheckRegistryController extends Controller
                 }
             }
 
+            if (0 === $total) {
+                $total = 1;
+            }
             $sitesStatusInfo[$siteName]['days'] = $monitoredDays;
             $sitesStatusInfo[$siteName]['brand_id'] = $brandId;
             if ($failed === 0) {
