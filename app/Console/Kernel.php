@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(HealthcheckCommand::class)->everyMinute()->withoutOverlapping(10);
         $schedule->command(PingCommand::class)->everyMinute()->withoutOverlapping(10);
         $schedule->command(BestchangeObserverCommand::class)->everyMinute()->withoutOverlapping(10);
-        $schedule->command(VirusTotalScan::class)->daily()->withoutOverlapping(10);
+        $schedule->command(VirusTotalScan::class)->daily();
     }
 
     /**
