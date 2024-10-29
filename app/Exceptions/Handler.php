@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
 use App\Exceptions\Contracts\ReportableToSlackInterface;
 use App\External\Slack\Client\Client as SlackClient;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\Facades\Log;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -23,21 +27,27 @@ class Handler extends ExceptionHandler
 
     /**
      * Register the exception handling callbacks for the application.
+     * @throws BindingResolutionException
      */
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            if (config()->get('app.sentry_enabled') && app()->bound('sentry')) {
-                app('sentry')->captureException($e);
+            /** @var Repository $config */
+            $config = $this->container->make(Repository::class);
+            /** @var LoggerInterface $logger */
+            $logger = $this->container->make(LoggerInterface::class);
+
+            if ($config->get('app.sentry_enabled') && $this->container->bound('sentry')) {
+                $this->container->make('sentry')->captureException($e);
             }
 
             if ($e instanceof ReportableToSlackInterface) {
                 /** @var SlackClient $slackClient */
-                $slackClient = app(SlackClient::class);
-                if ('production' === config()->get('app.env')) {
+                $slackClient = $this->container->make(SlackClient::class);
+                if ('production' === $config->get('app.env')) {
                     $slackClient->sendMessage($e->toSlack());
                 } else {
-                    Log::debug('Sending error message to Slack.', [
+                    $logger->debug('Sending error message to Slack.', [
                         'message' => $e->toSlack(),
                     ]);
                 }
