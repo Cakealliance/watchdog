@@ -51,7 +51,7 @@ class Client
                 $this->logger->error(__CLASS__ . ": Failed to initiate scan for URL", [
                     'url' => $url,
                     'status_code' => $response->getStatusCode(),
-                    'response_body' => $bodyContent,
+                    'response_body' => substr($bodyContent, 0, 500),
                 ]);
 
                 throw new Exception("Failed to initiate scan for URL.");
@@ -99,8 +99,9 @@ class Client
                 $this->logger->error(__CLASS__ . ": Failed to retrieve analysis report", [
                     'analysis_id' => $id,
                     'status_code' => $response->getStatusCode(),
-                    'response_body' => $bodyContent,
+                    'response_body' => substr($bodyContent, 0, 500),
                 ]);
+
                 throw new Exception("Failed to retrieve analysis report.");
             }
 
