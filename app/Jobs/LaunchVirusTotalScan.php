@@ -14,14 +14,18 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\RateLimitedWithRedis;
 use Illuminate\Support\DateFactory;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 class LaunchVirusTotalScan implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable;
 
+    private const BATCH_SIZE = 4;
+
     public function __construct(
-        private readonly string $websiteUrl,
+        private readonly array $websites,
+        private readonly array $analysisReportIds = []
     ) {
     }
 
@@ -37,18 +41,55 @@ class LaunchVirusTotalScan implements ShouldQueue
         VirusTotalClient $virusTotalClient,
         Dispatcher $dispatcher,
         DateFactory $dateFactory,
+        LoggerInterface $logger,
     ): void {
         try {
-            $analysisReportId = $virusTotalClient->scanUrl($this->websiteUrl);
+            $logger->info(__CLASS__ . ': Launching VirusTotal scan for websites', [
+                'websites' => $this->websites,
+            ]);
 
-            $dispatcher->dispatch(
-                (new VerifyVirusTotalScan($analysisReportId))
-                    ->onQueue(QueueEnum::VIRUS_TOTAL_SCAN->value)
-                    ->delay($dateFactory->now()->addMinute())
+            $websitesToProcess = array_slice($this->websites, 0, self::BATCH_SIZE);
+            $remainingWebsites = array_slice($this->websites, self::BATCH_SIZE);
+
+            $newAnalysisReportIds = [];
+
+            foreach ($websitesToProcess as $websiteUrl) {
+                $logger->debug(__CLASS__ . ': Scanning website', compact('websiteUrl'));
+
+                $newAnalysisReportIds[] = $virusTotalClient->scanUrl($websiteUrl);
+            }
+
+            $allAnalysisReportIds = array_merge($this->analysisReportIds, $newAnalysisReportIds);
+
+            $logger->debug(__CLASS__ . ': Collected analysis report IDs',
+                compact('newAnalysisReportIds', 'allAnalysisReportIds')
             );
+
+            if (!empty($remainingWebsites)) {
+                $logger->info(__CLASS__ . ': Scheduling next batch for remaining websites',
+                    compact('remainingWebsites')
+                );
+
+                $dispatcher->dispatch((new self($remainingWebsites, $allAnalysisReportIds))
+                    ->onQueue(QueueEnum::VIRUS_TOTAL_SCAN->value)
+                    ->delay($dateFactory->now()->addMinute()));
+            } else {
+                $logger->info(__CLASS__ . ': All websites processed. Dispatching VerifyVirusTotalScan job',
+                    compact('allAnalysisReportIds')
+                );
+
+                $dispatcher->dispatch((new VerifyVirusTotalScan($allAnalysisReportIds))
+                    ->onQueue(QueueEnum::VIRUS_TOTAL_SCAN->value)
+                    ->delay($dateFactory->now()->addMinute()));
+            }
         } catch (Throwable $exception) {
+            $logger->error(__CLASS__ . ': Failed to start scan', [
+                'error_message' => $exception->getMessage(),
+                'error_trace' => $exception->getTraceAsString(),
+            ]);
+
             throw new ScanLaunchFailedException(
-                message: 'Failed to start scan for: ' . $this->websiteUrl,
+                message: 'Failed to start scan.',
                 previous: $exception,
             );
         }

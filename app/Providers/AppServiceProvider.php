@@ -17,6 +17,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        RateLimiter::for(QueueEnum::VIRUS_TOTAL_SCAN->value, fn() => Limit::perMinute(4));
+        RateLimiter::for(QueueEnum::VIRUS_TOTAL_SCAN->value, fn() => Limit::perMinute(1));
     }
 }
