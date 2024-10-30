@@ -56,7 +56,15 @@ class LaunchVirusTotalScan implements ShouldQueue
             foreach ($websitesToProcess as $websiteUrl) {
                 $logger->debug(__CLASS__ . ': Scanning website', compact('websiteUrl'));
 
-                $newAnalysisReportIds[] = $virusTotalClient->scanUrl($websiteUrl);
+                try {
+                    $newAnalysisReportIds[] = $virusTotalClient->scanUrl($websiteUrl);
+                } catch (Throwable $e) {
+                    $logger->error(__CLASS__ . ': Failed to scan website', [
+                        'website_url' => $websiteUrl,
+                        'exception_message' => $e->getMessage(),
+                        'exception_trace' => $e->getTraceAsString(),
+                    ]);
+                }
             }
 
             $allAnalysisReportIds = array_merge($this->analysisReportIds, $newAnalysisReportIds);
@@ -83,15 +91,12 @@ class LaunchVirusTotalScan implements ShouldQueue
                     ->delay($dateFactory->now()->addMinute()));
             }
         } catch (Throwable $exception) {
-            $logger->error(__CLASS__ . ': Failed to start scan', [
+            $logger->error(__CLASS__ . ': Exception occurred during the job execution.', [
                 'error_message' => $exception->getMessage(),
                 'error_trace' => $exception->getTraceAsString(),
             ]);
 
-            throw new ScanLaunchFailedException(
-                message: 'Failed to start scan.',
-                previous: $exception,
-            );
+            throw new ScanLaunchFailedException($exception->getMessage(), $exception->getCode(), $exception);
         }
     }
 }
