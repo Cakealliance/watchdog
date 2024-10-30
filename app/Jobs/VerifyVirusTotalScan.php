@@ -101,6 +101,17 @@ class VerifyVirusTotalScan implements ShouldQueue
                         }
                     }
 
+                    if ($exception instanceof MalwareDetectedException) {
+                        $logger->warning(__CLASS__ . ': Malware detected for the website', [
+                            'website_url' => $exception->getWebsiteUrl(),
+                            'analysis_report_id' => $analysisReportId,
+                            'error_message' => $exception->getMessage(),
+                            'error_trace' => $exception->getTraceAsString(),
+                        ]);
+
+                        continue;
+                    }
+
                     $logger->error(__CLASS__ . ': Exception occurred during scan verification', [
                         'error_message' => $exception->getMessage(),
                         'error_trace' => $exception->getTraceAsString(),
@@ -146,6 +157,7 @@ class VerifyVirusTotalScan implements ShouldQueue
             'Please check the following report: <' . $reportUrl . '|View Report>';
 
         throw new MalwareDetectedException(
+            websiteUrl: $websiteUrl,
             message: "$messagePrefix software detected in the report: " . $responseArray['data']['id'],
             slackMessage: $slackMessage
         );
