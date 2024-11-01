@@ -84,7 +84,7 @@ class PingCommand extends Command
         }
     }
 
-    private function pingBestchange(): void
+    private function pingBestchange(LoggerInterface $logger): void
     {
         $ruGauge = $this->collectorRegistry->getOrRegisterGauge(
             'bestchange_load_speed', 'ru_version', 'Speed of site loading in milliseconds'
@@ -97,7 +97,18 @@ class PingCommand extends Command
 
         // Bestchange.ru
         $currentTime = Carbon::now();
-        $ruResponseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($ruBestchangeUrl)->status();
+        try {
+            $ruResponseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($ruBestchangeUrl)->status();
+        } catch (\Throwable $exception) {
+            $logger->error('Could not ping Bestchange', [
+                'website_url' => $ruBestchangeUrl,
+                'exception_message' => $exception->getMessage(),
+                'exception_trace' => substr($exception->getTraceAsString(), 0, 500),
+            ]);
+
+            return;
+        }
+
 
         if($ruResponseStatus === Response::HTTP_OK) {
             $ruGauge->set(Carbon::now()->diffInMilliseconds($currentTime));
@@ -107,7 +118,18 @@ class PingCommand extends Command
 
         // Bestchange.com
         $currentTime = Carbon::now();
-        $enResponseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($enBestchangeUrl)->status();
+        try {
+            $enResponseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($enBestchangeUrl)->status();
+        } catch (\Throwable $exception) {
+            $logger->error('Could not ping Bestchange', [
+                'website_url' => $enBestchangeUrl,
+                'exception_message' => $exception->getMessage(),
+                'exception_trace' => substr($exception->getTraceAsString(), 0, 500),
+            ]);
+
+            return;
+        }
+
         if($enResponseStatus === Response::HTTP_OK) {
             $enGauge->set(Carbon::now()->diffInMilliseconds($currentTime));
         } else {
