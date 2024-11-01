@@ -52,6 +52,7 @@ class PingCommand extends Command
             $this->processOne($brandId, $url . self::API_HEALTHCHECK_ROUTE, $logger, $this->apiHealthcheckGauge);
             $this->processOne($brandId, $url . self::WEBSERVER_HEALTHCHECK_ROUTE, $logger, $this->webserverHealthcheckGauge);
         }
+        $this->pingBestchange();
 
         $logger->info('PingCommand executed successfully', [
             'process_time_s' => Carbon::now()->diffInSeconds($startTime),
@@ -80,6 +81,37 @@ class PingCommand extends Command
             $gauge->set(Carbon::now()->diffInMilliseconds($currentTime), [$websiteName]);
         } else {
             $gauge->set(0, [$websiteName]);
+        }
+    }
+
+    private function pingBestchange(): void
+    {
+        $ruGauge = $this->collectorRegistry->getOrRegisterGauge(
+            'bestchange_load_speed', 'ru_version', 'Speed of site loading in milliseconds'
+        );
+        $enGauge = $this->collectorRegistry->getOrRegisterGauge(
+            'bestchange_load_speed', 'en_version', 'Speed of site loading in milliseconds'
+        );
+        $ruBestchangeUrl = 'https://www.bestchange.ru';
+        $enBestchangeUrl = 'https://www.bestchange.en';
+
+        // Bestchange.ru
+        $currentTime = Carbon::now();
+        $ruResponseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($ruBestchangeUrl)->status();
+
+        if($ruResponseStatus === Response::HTTP_OK) {
+            $ruGauge->set(Carbon::now()->diffInMilliseconds($currentTime));
+        } else {
+            $ruGauge->set(0);
+        }
+
+        // Bestchange.com
+        $currentTime = Carbon::now();
+        $enResponseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($enBestchangeUrl)->status();
+        if($enResponseStatus === Response::HTTP_OK) {
+            $enGauge->set(Carbon::now()->diffInMilliseconds($currentTime));
+        } else {
+            $enGauge->set(0);
         }
     }
 }
