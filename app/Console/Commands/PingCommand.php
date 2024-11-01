@@ -52,7 +52,7 @@ class PingCommand extends Command
             $this->processOne($brandId, $url . self::API_HEALTHCHECK_ROUTE, $logger, $this->apiHealthcheckGauge);
             $this->processOne($brandId, $url . self::WEBSERVER_HEALTHCHECK_ROUTE, $logger, $this->webserverHealthcheckGauge);
         }
-        $this->pingBestchange();
+        $this->pingBestchangeApi();
 
         $logger->info('PingCommand executed successfully', [
             'process_time_s' => Carbon::now()->diffInSeconds($startTime),
@@ -84,24 +84,20 @@ class PingCommand extends Command
         }
     }
 
-    private function pingBestchange(LoggerInterface $logger): void
+    private function pingBestchangeApi(LoggerInterface $logger): void
     {
-        $ruGauge = $this->collectorRegistry->getOrRegisterGauge(
-            'bestchange_load_speed', 'ru_version', 'Speed of site loading in milliseconds'
+        $gauge = $this->collectorRegistry->getOrRegisterGauge(
+            'bestchange_load_speed', 'api', 'Speed of API /changers loading in milliseconds'
         );
-        $enGauge = $this->collectorRegistry->getOrRegisterGauge(
-            'bestchange_load_speed', 'en_version', 'Speed of site loading in milliseconds'
-        );
-        $ruBestchangeUrl = 'https://www.bestchange.ru';
-        $enBestchangeUrl = 'https://www.bestchange.en';
+        $url = 'https://www.bestchange.app/v2/10b96f533554b06efdc4694ff0dc32eb/changers';
 
         // Bestchange.ru
         $currentTime = Carbon::now();
         try {
-            $ruResponseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($ruBestchangeUrl)->status();
+            $ruResponseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($url)->status();
         } catch (\Throwable $exception) {
-            $logger->error('Could not ping Bestchange', [
-                'website_url' => $ruBestchangeUrl,
+            $logger->error('Could not ping Bestchange API', [
+                'website_url' => $url,
                 'exception_message' => $exception->getMessage(),
                 'exception_trace' => substr($exception->getTraceAsString(), 0, 500),
             ]);
@@ -111,29 +107,9 @@ class PingCommand extends Command
 
 
         if($ruResponseStatus === Response::HTTP_OK) {
-            $ruGauge->set(Carbon::now()->diffInMilliseconds($currentTime));
+            $gauge->set(Carbon::now()->diffInMilliseconds($currentTime));
         } else {
-            $ruGauge->set(0);
-        }
-
-        // Bestchange.com
-        $currentTime = Carbon::now();
-        try {
-            $enResponseStatus = Http::timeout(self::TIMEOUT_SECONDS)->get($enBestchangeUrl)->status();
-        } catch (\Throwable $exception) {
-            $logger->error('Could not ping Bestchange', [
-                'website_url' => $enBestchangeUrl,
-                'exception_message' => $exception->getMessage(),
-                'exception_trace' => substr($exception->getTraceAsString(), 0, 500),
-            ]);
-
-            return;
-        }
-
-        if($enResponseStatus === Response::HTTP_OK) {
-            $enGauge->set(Carbon::now()->diffInMilliseconds($currentTime));
-        } else {
-            $enGauge->set(0);
+            $gauge->set(0);
         }
     }
 }
