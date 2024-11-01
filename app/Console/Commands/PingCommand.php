@@ -16,10 +16,14 @@ class PingCommand extends Command
 {
     private const TIMEOUT_SECONDS = 15;
     private const API_GENERAL_INFO_ROUTE = '/api/general-info';
+    private const API_HEALTHCHECK_ROUTE = '/api/healthcheck';
+    private const WEBSERVER_HEALTHCHECK_ROUTE = '/webserver/healthcheck';
 
     private CollectorRegistry $collectorRegistry;
     private Gauge $mainPageGauge;
     private Gauge $apiGeneralInfoGauge;
+    private Gauge $apiHealthcheckGauge;
+    private Gauge $webserverHealthcheckGauge;
 
     protected $signature = 'ping';
 
@@ -32,6 +36,12 @@ class PingCommand extends Command
         $this->apiGeneralInfoGauge = $this->collectorRegistry->getOrRegisterGauge(
             'website_speed', 'api_general_info_load_time', 'Speed of /api/general-info loading in milliseconds', ['project']
         );
+        $this->apiHealthcheckGauge = $this->collectorRegistry->getOrRegisterGauge(
+            'website_speed', 'api_healthcheck_load_time', 'Speed of /api/healthcheck loading in milliseconds', ['project']
+        );
+        $this->webserverHealthcheckGauge = $this->collectorRegistry->getOrRegisterGauge(
+            'website_speed', 'webserver_healthcheck_load_time', 'Speed of /webserver/healthcheck loading in milliseconds', ['project']
+        );
 
         $startTime = Carbon::now();
         $exchangers = config('websites')['exchangers'];
@@ -39,6 +49,8 @@ class PingCommand extends Command
         foreach ($exchangers as $brandId => $url) {
             $this->processOne($brandId, $url, $logger, $this->mainPageGauge);
             $this->processOne($brandId, $url . self::API_GENERAL_INFO_ROUTE, $logger, $this->apiGeneralInfoGauge);
+            $this->processOne($brandId, $url . self::API_GENERAL_INFO_ROUTE, $logger, $this->apiHealthcheckGauge);
+            $this->processOne($brandId, $url . self::WEBSERVER_HEALTHCHECK_ROUTE, $logger, $this->webserverHealthcheckGauge);
         }
 
         $logger->info('PingCommand executed successfully', [
