@@ -52,7 +52,7 @@ class PingCommand extends Command
             $this->processOne($brandId, $url . self::API_HEALTHCHECK_ROUTE, $logger, $this->apiHealthcheckGauge);
             $this->processOne($brandId, $url . self::WEBSERVER_HEALTHCHECK_ROUTE, $logger, $this->webserverHealthcheckGauge);
         }
-        $this->pingBestchangeApi();
+        $this->pingBestchangeApi($logger);
 
         $logger->info('PingCommand executed successfully', [
             'process_time_s' => Carbon::now()->diffInSeconds($startTime),
