@@ -24,5 +24,6 @@ scrape_configs:
         '1wm.io',
         'uachanger.com',
         'vobmenka.com',
+        'btc2pay.org',
       ]
     metrics_path: /api/metrics

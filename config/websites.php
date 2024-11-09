@@ -10,6 +10,7 @@ return [
         5 => 'https://best-obmen.co',
         6 => 'https://first-btc.io',
         7 => 'https://wx.money',
+        9 => 'https://btc2pay.org',
         10 => 'https://1wm.io',
         11 => 'https://vobmenka.com',
         12 => 'https://kz007.org',
