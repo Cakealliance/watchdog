@@ -46,11 +46,11 @@ class PingCommand extends Command
         $startTime = Carbon::now();
         $exchangers = config('websites')['exchangers'];
 
-        foreach ($exchangers as $brandId => $url) {
-            $this->processOne($brandId, $url, $logger, $this->mainPageGauge);
-            $this->processOne($brandId, $url . self::API_GENERAL_INFO_ROUTE, $logger, $this->apiGeneralInfoGauge);
-            $this->processOne($brandId, $url . self::API_HEALTHCHECK_ROUTE, $logger, $this->apiHealthcheckGauge);
-            $this->processOne($brandId, $url . self::WEBSERVER_HEALTHCHECK_ROUTE, $logger, $this->webserverHealthcheckGauge);
+        foreach ($exchangers as $brandId => $info) {
+            $this->processOne($brandId, $info['url'], $logger, $this->mainPageGauge);
+            $this->processOne($brandId, $info['url'] . self::API_GENERAL_INFO_ROUTE, $logger, $this->apiGeneralInfoGauge);
+            $this->processOne($brandId, $info['url'] . self::API_HEALTHCHECK_ROUTE, $logger, $this->apiHealthcheckGauge);
+            $this->processOne($brandId, $info['url'] . self::WEBSERVER_HEALTHCHECK_ROUTE, $logger, $this->webserverHealthcheckGauge);
         }
         $this->pingBestchangeApi($logger);
 
