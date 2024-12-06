@@ -15,14 +15,11 @@ class Client
 {
     private const POST_MESSAGE_ENDPOINT = 'https://slack.com/api/chat.postMessage';
 
-    private string $defaultWebhookUrl;
-
     public function __construct(
         private readonly GuzzleClient $httpClient,
         private readonly Repository $config,
         private readonly LoggerInterface $logger,
     ) {
-        $this->defaultWebhookUrl = $this->config->get('services.slack.webhook_url');
     }
 
     /**
@@ -30,7 +27,7 @@ class Client
      */
     public function sendMessage(string $message): void
     {
-        $this->postToSlack(['text' => $message], $this->defaultWebhookUrl);
+        $this->postToSlack(['text' => $message], $this->config->get('services.slack.webhook_url'));
     }
 
     /**
