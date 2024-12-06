@@ -31,10 +31,6 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'virus_total' => [
-        'api_key' => env('VIRUS_TOTAL_API_KEY'),
-    ],
-
     'slack' => [
         'notifier_oauth_token' => env('SLACK_NOTIFIER_OAUTH_TOKEN'),
         'webhook_url' => env('SLACK_WEBHOOK_URL'),
