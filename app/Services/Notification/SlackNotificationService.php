@@ -59,8 +59,8 @@ class SlackNotificationService implements NotificationServiceInterface
         $parsedUrl = parse_url($exportFileUrl);
         $targetExchanger = $parsedUrl['scheme'] . '://' . $parsedUrl['host'];
 
-        foreach ($exchangers as $ptNumber => $exchangerDomain) {
-            if ($targetExchanger !== $exchangerDomain) {
+        foreach ($exchangers as $ptNumber => $exchangerInfo) {
+            if ($targetExchanger !== $exchangerInfo['url']) {
                 continue;
             }
 
