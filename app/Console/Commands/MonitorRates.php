@@ -34,9 +34,17 @@ class MonitorRates extends Command
 
     public function handle(): int
     {
+        $this->logger->debug(__CLASS__ . ': Starting...', [
+            'export_files' => $this->exportFiles,
+        ]);
+
         if ([] === $this->exportFiles) {
+            $this->logger->debug(__CLASS__ . ': Empty export files array. Abort.');
+
             return self::SUCCESS;
         }
+
+        $isSuccessful = true;
 
         foreach ($this->exportFiles as $exportFile) {
             try {
@@ -57,6 +65,8 @@ class MonitorRates extends Command
                     );
                 }
             } catch (Throwable $e) {
+                $isSuccessful = false;
+
                 $this->logger->error(__CLASS__ . ': Failed to check export file.', [
                     'export_file' => $exportFile,
                     'exception_message' => $e->getMessage(),
@@ -67,6 +77,18 @@ class MonitorRates extends Command
             }
         }
 
-        return self::SUCCESS;
+        if ($isSuccessful) {
+            $this->logger->debug(__CLASS__ . ': Monitor rates finished successfully.', [
+                'export_files' => $this->exportFiles,
+            ]);
+
+            return self::SUCCESS;
+        }
+
+        $this->logger->debug(__CLASS__ . ': Finished with errors', [
+            'export_files' => $this->exportFiles,
+        ]);
+
+        return self::FAILURE;
     }
 }
