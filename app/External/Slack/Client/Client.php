@@ -42,7 +42,7 @@ class Client
             ],
             self::POST_MESSAGE_ENDPOINT,
             [
-                'Bearer' => $this->config->get('services.slack.notifier_oauth_token'),
+                'Authorization' => 'Bearer ' . $this->config->get('services.slack.notifier_oauth_token'),
                 'Content-Type' => 'application/json; charset=utf-8',
             ]
         );
