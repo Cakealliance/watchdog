@@ -47,7 +47,7 @@ class PingCommand extends Command
         $exchangers = config('websites')['exchangers'];
 
         foreach ($exchangers as $brandId => $info) {
-            $this->processOne($brandId, $info, $logger, $this->mainPageGauge);
+            $this->processOne($brandId, $info['url'], $logger, $this->mainPageGauge);
             $this->processOne($brandId, $info['url'] . self::API_GENERAL_INFO_ROUTE, $logger, $this->apiGeneralInfoGauge);
             $this->processOne($brandId, $info['url'] . self::API_HEALTHCHECK_ROUTE, $logger, $this->apiHealthcheckGauge);
             $this->processOne($brandId, $info['url'] . self::WEBSERVER_HEALTHCHECK_ROUTE, $logger, $this->webserverHealthcheckGauge);
